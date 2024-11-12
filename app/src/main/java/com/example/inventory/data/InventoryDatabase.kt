@@ -22,30 +22,45 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 /**
- * Database class with a singleton Instance object.
+ * Untuk membuat sebuah RoomDatabase, kelas abstrak Inventorydatabase akan diberikan
+ * anotasi @database. Dalam parameter anotasi Database didefinisikan bahwa tabel yang digunakan
+ * dalam database ini adalah tabel Item. Versi database adalah 1, dan exportSchema dibaut false
+ * sehingga schema database tidakk akan diekspor sebagai file JSON dan untuk tidak menyimpan
+ * backup untuk version history.
+ *
+ * Fungsi ini dibuat agar aplikasi dapat menggunakan fungsi DAO dalam menggunakna fungsi insert, delete
+ * update, dan get.
  */
 @Database(entities = [Item::class], version = 1, exportSchema = false)
 abstract class InventoryDatabase : RoomDatabase() {
-
+    /**
+     * Kemudian dibuat funsgi abstrak itenDao yanga kan mengembalikan objek ItemDao
+     * untuk menggunkanan fungsi DAO terhadap database.
+     */
     abstract fun itemDao(): ItemDao
 
     companion object {
         @Volatile
         private var Instance: InventoryDatabase? = null
+        /**
+         * objek pendamping dibuat untuk menyimpan Instance secara singleton
+         * Sehingga hanya satu objek database saja yang aktif. Anotasi @Volatile dilakukan agar
+         * perubahan pada Instace menjadi up to date atau terkini.
+         */
 
         fun getDatabase(context: Context): InventoryDatabase {
-            // if the Instance is not null, return it, otherwise create a new database instance.
+
             return Instance ?: synchronized(this) {
                 Room.databaseBuilder(context, InventoryDatabase::class.java, "item_database")
-                    /**
-                     * Setting this option in your app's database builder means that Room
-                     * permanently deletes all data from the tables in your database when it
-                     * attempts to perform a migration with no defined migration path.
-                     */
-                    .fallbackToDestructiveMigration()
                     .build()
                     .also { Instance = it }
             }
         }
+        /**
+         * Untuk funsgi getDatabase ini menyediakan metode akses secara singleton untuk database.
+         * Kemudian apabila instance sudah ada atau tidak null, maka akan dikembalikan database.
+         * Namun, apabila Instance null maka akan dikembalikan database bernama item_database dengan menggunakan
+         * Room.databaseBuilder
+         */
     }
 }

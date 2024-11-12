@@ -28,7 +28,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 /**
- * ViewModel to retrieve and update an item from the [ItemsRepository]'s data source.
+ * Kelas ItemEditViewModel dibuat untuk menyediakan data dan untuk mengatasi
+ * funsgi yang digunakna untuk layar edit item.
  */
 class ItemEditViewModel(
     savedStateHandle: SavedStateHandle,
@@ -36,11 +37,13 @@ class ItemEditViewModel(
 ) : ViewModel() {
 
     /**
-     * Holds current item ui state
+     * Berfungsi untuk menyimpan stat UI dalam keadaan saat itu juga.
      */
     var itemUiState by mutableStateOf(ItemUiState())
         private set
-
+    /**
+     * Berfungsi untuk menyimpan id dari item yang akan di edit.
+     */
     private val itemId: Int = checkNotNull(savedStateHandle[ItemEditDestination.itemIdArg])
 
     init {
@@ -53,7 +56,9 @@ class ItemEditViewModel(
     }
 
     /**
-     * Update the item in the [ItemsRepository]'s data source
+     * Berfungsi untuk memperbarui data item dalma itemaRespository.
+     * Input akan divalidasi terlebih dahulu dan apabila berhasil maka akan dijalankna
+     * updateItem untuk memperbarui data.
      */
     suspend fun updateItem() {
         if (validateInput(itemUiState.itemDetails)) {
@@ -62,14 +67,15 @@ class ItemEditViewModel(
     }
 
     /**
-     * Updates the [itemUiState] with the value provided in the argument. This method also triggers
-     * a validation for input values.
+     * Berfungsi untuk memperbarui itemUiState dengan nilai itemDetails.
      */
     fun updateUiState(itemDetails: ItemDetails) {
         itemUiState =
             ItemUiState(itemDetails = itemDetails, isEntryValid = validateInput(itemDetails))
     }
-
+    /**
+     * Berfungsi untuk mmevalidasi input dengan memeriksa apakah jenis input valid atau tidak kosong. .
+     */
     private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
         return with(uiState) {
             name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()

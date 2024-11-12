@@ -65,14 +65,20 @@ import com.example.inventory.ui.AppViewModelProvider
 import com.example.inventory.ui.navigation.NavigationDestination
 import com.example.inventory.ui.theme.InventoryTheme
 import kotlinx.coroutines.launch
-
+/**
+ * Objek ItemDetailsDestination berfungsi sebagai destinasi navigasi untuk layar
+ * bernama "item_details" yang merupakan layar untuk menampilkan data item
+ */
 object ItemDetailsDestination : NavigationDestination {
     override val route = "item_details"
     override val titleRes = R.string.item_detail_title
     const val itemIdArg = "itemId"
     val routeWithArgs = "$route/{$itemIdArg}"
 }
-
+/**
+ * Fungsi ini merupakan tampilan untuk layar utama
+ * saat pengguna ingin melihat tampilan detail setiap item.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItemDetailsScreen(
@@ -133,6 +139,11 @@ fun ItemDetailsScreen(
     }
 }
 
+/**
+ * Fungsi ini merupakan bagian body untuk menampilkan
+ * data item. Terdapat tombol Sell yang mengurangi kuantitas
+ * data item sebanyak 1 dan tombol Delet untuk mengahpus data item.
+ */
 @Composable
 private fun ItemDetailsBody(
     itemDetailsUiState: ItemDetailsUiState,
@@ -176,7 +187,10 @@ private fun ItemDetailsBody(
     }
 }
 
-
+/**
+ * Fungsi ini merupakan tampilan untuk detail
+ * dari sebuah item dalam bentuk sebuah card
+ */
 @Composable
 fun ItemDetails(
     item: Item, modifier: Modifier = Modifier
@@ -228,6 +242,10 @@ fun ItemDetails(
     }
 }
 
+/**
+ * Fungsi ini merupakan baris yang berfungsi untuk
+ * menampilkan detail dari sebuah item
+ */
 @Composable
 private fun ItemDetailsRow(
     @StringRes labelResID: Int, itemDetail: String, modifier: Modifier = Modifier
@@ -239,6 +257,11 @@ private fun ItemDetailsRow(
     }
 }
 
+/**
+ * Fungsi ini akan menampilkan sebuah dialog apabila
+ * pengguna akan menghapus item dan meminta konfirmasi pengguna
+ * sebelum item tersebut dihapus.
+ */
 @Composable
 private fun DeleteConfirmationDialog(
     onDeleteConfirm: () -> Unit, onDeleteCancel: () -> Unit, modifier: Modifier = Modifier

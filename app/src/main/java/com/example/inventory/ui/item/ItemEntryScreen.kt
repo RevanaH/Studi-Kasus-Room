@@ -49,12 +49,19 @@ import com.example.inventory.ui.theme.InventoryTheme
 import kotlinx.coroutines.launch
 import java.util.Currency
 import java.util.Locale
-
+/**
+ * Objek ItemEntryDestination berfungsi sebagai destinasi navigasi untuk layar
+ * bernama "item_entry" yang merupakan layar untuk menambah data item
+ */
 object ItemEntryDestination : NavigationDestination {
     override val route = "item_entry"
     override val titleRes = R.string.item_entry_title
 }
 
+/**
+ * Fungsi ini merupakan tampilan untuk layar utama
+ * saat pengguna ingin memasukan input untuk aplikasi.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItemEntryScreen(
@@ -98,6 +105,10 @@ fun ItemEntryScreen(
     }
 }
 
+/**
+ * Fungsi yang menampilkan bagian tubuh dari tampilan untuk input.
+ * Berisi for untuk input dan tombol save untuk menyimpan data.
+ */
 @Composable
 fun ItemEntryBody(
     itemUiState: ItemUiState,
@@ -125,6 +136,9 @@ fun ItemEntryBody(
     }
 }
 
+/**
+ * Fungsi yang menampilkan form input untuk detail detail dari item yang akan ditambah.
+ */
 @Composable
 fun ItemInputForm(
     itemDetails: ItemDetails,

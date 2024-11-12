@@ -28,18 +28,21 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 /**
- * ViewModel to retrieve, update and delete an item from the [ItemsRepository]'s data source.
+ * Kelas ItemEntryViewModel dibuat untuk mengelola data dengan menampilkan data,
+ * mengapus data atau mengubah data.
  */
 class ItemDetailsViewModel(
     savedStateHandle: SavedStateHandle,
     private val itemsRepository: ItemsRepository,
 ) : ViewModel() {
-
+    /**
+     * Berfungsi untuk menyimpan id dari item yang akan di edit.
+     */
     private val itemId: Int = checkNotNull(savedStateHandle[ItemDetailsDestination.itemIdArg])
 
     /**
-     * Holds the item details ui state. The data is retrieved from [ItemsRepository] and mapped to
-     * the UI state.
+     * Berfungsi untuk menyimpan state item untuk tampilan UI.
+     * Data diambil dari itemsRespostory dan kemudian ditampilkan dalma Ui stat
      */
     val uiState: StateFlow<ItemDetailsUiState> =
         itemsRepository.getItemStream(itemId)
@@ -53,7 +56,8 @@ class ItemDetailsViewModel(
             )
 
     /**
-     * Reduces the item quantity by one and update the [ItemsRepository]'s data source.
+     * Berfungsi untuk mengurangi quantitiy satu untuk item dan menyimpan perubahan
+     * data tersebut dengan updateItem.
      */
     fun reduceQuantityByOne() {
         viewModelScope.launch {
@@ -65,7 +69,8 @@ class ItemDetailsViewModel(
     }
 
     /**
-     * Deletes the item from the [ItemsRepository]'s data source.
+     * Berfungsi untuk menghapus data item dari itemsRespository dengan menggunakan
+     * fungsi deleteItem
      */
     suspend fun deleteItem() {
         itemsRepository.deleteItem(uiState.value.itemDetails.toItem())
@@ -77,7 +82,8 @@ class ItemDetailsViewModel(
 }
 
 /**
- * UI state for ItemDetailsScreen
+ * Berfungsi untuk menyimpan UI state untuk layar
+ * yang menampilkan detail item
  */
 data class ItemDetailsUiState(
     val outOfStock: Boolean = true,

@@ -36,7 +36,10 @@ import com.example.inventory.ui.AppViewModelProvider
 import com.example.inventory.ui.navigation.NavigationDestination
 import com.example.inventory.ui.theme.InventoryTheme
 import kotlinx.coroutines.launch
-
+/**
+ * Objek ItemEditDestination berfungsi sebagai destinasi navigasi untuk layar
+ * bernama "item_edit" yang merupakan layar untuk mengubah data item
+ */
 object ItemEditDestination : NavigationDestination {
     override val route = "item_edit"
     override val titleRes = R.string.edit_item_title
@@ -44,6 +47,10 @@ object ItemEditDestination : NavigationDestination {
     val routeWithArgs = "$route/{$itemIdArg}"
 }
 
+/**
+ * Fungsi ini merupakan tampilan untuk layar utama
+ * saat pengguna ingin mengubah data yang telah disimpan.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItemEditScreen(
