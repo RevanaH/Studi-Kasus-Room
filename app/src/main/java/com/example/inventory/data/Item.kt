@@ -20,13 +20,28 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Entity data class represents a single row in the database.
+ * Kode mendeklrasasikan anotasi @Entity yang menandakan
+ * sebuah kelas sebagai kelas Entity yang akan disimpan dalam database.
+ * anotasi tableName untuk mendefinisikan tabel yang bernama items.
+ * Kemudian kelas data Item akan digunakan untuk menyimpan data.
+ * Data yang disimpan sesuai dengan atribut yang telah didefinisikan
+ * dalam kelas Item degan setiap baris mnejadi kolom tabel.
  */
 @Entity(tableName = "items")
 data class Item(
+    /**
+     * Untuk setiap tabel, diperlukan sebuah primary key.
+     * alam tabel ini id dijadikan sebuah primary key dengan menggunakan
+     * anotasi @PrimaryKey dan dalam anotasi terdapat  parameter "autoGenerate = true"
+     * sehingga primary key akan dibuat secara otiomatis setiap kali data ditambahkan.
+     */
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val name: String,
     val price: Double,
     val quantity: Int
 )
+/**
+ * Sehingga dalam tabel items ini memiliki kolom id sebagai primary key,
+ * kolom name, kolom price dan kolom quantity.
+ */

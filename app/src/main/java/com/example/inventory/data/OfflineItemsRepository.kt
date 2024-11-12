@@ -17,15 +17,41 @@
 package com.example.inventory.data
 
 import kotlinx.coroutines.flow.Flow
-
+/**
+ * Fungsi ini merupakan implementasi antarmuka untuk Itemsrepository.
+ * Kelas OfflineItemsRepository akan mengoverride fungsi yang ada dalam ItemsRepository
+ * dan memangilkan fungsi yang ada di dalam ItemDao sehingga funsgi dapat diimplementasikan
+ * dalam aplikasi.
+ */
 class OfflineItemsRepository(private val itemDao: ItemDao) : ItemsRepository {
+    /**
+     * Funsgi ini akan mengoverride funsgi getAllItemsStream yang ada dalam ItemsRespository
+     * dan akan mengambil seluruh data Item dari itemDao untuk menjalakan fungsi getAllItems
+     * yang akan menampilkan seluruh data
+     */
     override fun getAllItemsStream(): Flow<List<Item>> = itemDao.getAllItems()
-
+    /**
+     * Funsgi ini akan mengoverride funsgi getItemStream yang ada dalam ItemsRespository
+     * dan akan mengambil seluruh data Item dan id dari Item dari itemDao untuk
+     * menjalakan funsgi getItem berdasarkan id data.
+     */
     override fun getItemStream(id: Int): Flow<Item?> = itemDao.getItem(id)
-
+    /**
+     * Funsgi ini akan mengoverride funsgi InsertItem yang ada dalam ItemsRespository
+     * dan akan mengambil seluruh data Item dari itemDao untuk menjalakan fungsi insert
+     * yang akan menambah data sesuai dengan Item
+     */
     override suspend fun insertItem(item: Item) = itemDao.insert(item)
-
+    /**
+     * funsgi ini akan mengoverride funsgi deleteItem yang ada dalam ItemsRespository
+     * dan akan mengambil seluruh data Item dari itemDao untuk menjalakan funsgi delete
+     * yang akan mengapus data dalam database sesuai dengan Item
+     */
     override suspend fun deleteItem(item: Item) = itemDao.delete(item)
-
+    /**
+     * funsgi ini akan mengoverride funsgi updateItem  yang ada dalam ItemsRespository
+     * dan akan mengambil seluruh data Item dari itemDao untuk menjalakan funsgi update
+     * untuk mengubah data dalam database sesuai dengan Item.
+     */
     override suspend fun updateItem(item: Item) = itemDao.update(item)
 }
