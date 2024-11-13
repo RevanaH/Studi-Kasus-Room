@@ -27,3 +27,7 @@ Getting Started
 ---------------
 
 1. Download and run the app.
+
+
+Nama: Ervan Halimsurya
+NIM: 225150201111020
